@@ -1,0 +1,19 @@
+# Build Artifacts
+*.o
+*.bin
+*.iso
+*.img
+build/
+dist/
+
+# Logs & Debugging
+*.log
+core
+
+# IDE Specific (NYC/Mac users often see these)
+.DS_Store
+.vscode/
+.idea/
+
+# Operating System specific files
+*.swp
