@@ -6,6 +6,8 @@
 
 *Fact: 90% of gamblers quite right before they're about to hit big*
 
+This is a personal project for a parody operating system to expand my knowledge and skills. Notes for the process and everything I've learned are kept in /PersonalNotes.
+
 
 
 Casino OS is an experimental, non-deterministic kernel designed to explore the limits of **Stochastic Resource Allocation**. While traditional kernels aim for fairness and determinism, Casino OS treats system resources (CPU, RAM, I/O) as a zero-sum game managed by the **Kernel Croupier**.
