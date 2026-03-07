@@ -1,0 +1,222 @@
+{
+  "main": {
+    "id": "461cb3de40904a60",
+    "type": "split",
+    "children": [
+      {
+        "id": "1180f9bff9e5808a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6af4c085b236ce5d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Lesson 1 - Bare Metal.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Lesson 1 - Bare Metal"
+            }
+          },
+          {
+            "id": "ae501d8f52dc4174",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Lesson 1 - Bare Metal.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Lesson 1 - Bare Metal"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "fc834655146d4ed8",
+    "type": "split",
+    "children": [
+      {
+        "id": "bea4c145728ee4cd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ff3757e6497e9607",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "c585717c8f78e5c0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "cdaa156b5576bf05",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "431ee4f1bcc73ea3",
+    "type": "split",
+    "children": [
+      {
+        "id": "d1bde38c8b981a33",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "93ed8dac5d79ce85",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Lesson 1 - Bare Metal.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Lesson 1 - Bare Metal"
+            }
+          },
+          {
+            "id": "706432ef0b1d9f4f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Lesson 1 - Bare Metal.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Lesson 1 - Bare Metal"
+            }
+          },
+          {
+            "id": "e7fe1761c9e1c6f6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "9f9562a380c8fc91",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "cb4267f3f4375109",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Lesson 1 - Bare Metal.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Lesson 1 - Bare Metal"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "ae501d8f52dc4174",
+  "lastOpenFiles": [
+    "PDFs/Technical Specification - Deconstructing the Scheduler.pdf",
+    "Lesson 2 - Interrupts & Exceptions.md",
+    "Technical Specification - Deconstructing the Scheduler.md",
+    "Technical Specification - JackpotFS.md",
+    "PDFs/Technical Specification - JackpotFS.pdf",
+    "Technical Specification - Vigorish Memory Management.md",
+    "PDFs/Technical Specification - Vigorish Memory Management.pdf",
+    "Extra Lesson 1.1 - The 'Awakening' Sequence.md",
+    "PDFs/Extra Lesson 1.1 - The 'Awakening' Sequence.pdf",
+    "Extra Lesson 1.3 - Memory-Mapped IO (VGA Buffer + More).md",
+    "PDFs/Extra Lesson 1.3 - Memory-Mapped IO (VGA Buffer + More).pdf",
+    "Extra Lesson 1.2 - How Make Works.md",
+    "PDFs/Extra Lesson 1.2 - How Make Works.pdf",
+    "Lesson 1 - Bare Metal.md",
+    "PDFs/Lesson 1 - Bare Metal.pdf",
+    "PDFs",
+    "VGA.md"
+  ]
+}
