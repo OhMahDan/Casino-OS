@@ -4,7 +4,7 @@
 
 
 
-*Fact: 90% of gamblers quite right before they're about to hit big*
+*Fact: 90% of gamblers quit right before they're about to hit big*
 
 This is a personal project for a parody operating system to expand my knowledge and skills. Notes for the process I'm taking, technical specification details, and everything I've learned in this project are kept in `/Learning Notes`.
 
@@ -28,7 +28,7 @@ Casino OS is an experimental, non-deterministic kernel designed to explore the l
 * **The High-Roller Shell** Instead of a standard Bash-like shell, we can build a command line that requires users to pass "wagers" as arguments to standard commands.
 	* *Example:* To read a file, the user types `read("notes.txt", 50)`. The `50` is the percentage of their CPU tickets they are willing to bet. If they win, the file opens instantly. If they lose, the shell hangs for 5 seconds as a penalty.
 * **Suicide-Linux Inspired "Russian Roulette Shell"**: Suicide Linux introduces the concept of High-Stakes Input. 
-	* *Application:* We can implement a similar, albeit less destructive, mechanic in your Casino OS shell. If you mistype a command or provide invalid arguments, the shell doesn't just reject it. It rolls the `casino_rand()` dice.
+	* *Application:* We can implement a similar, albeit less destructive, mechanic in the Casino OS shell. If you mistype a command or provide invalid arguments, the shell doesn't just reject it. It rolls the `casino_rand()` dice.
 	* *The Mechanic:* 
 		* 80% chance: "Command not found. The House forgives you."
 		* 20% chance: The shell executes a minor penalty, like forcibly sleeping the terminal for 10 seconds or killing your most recent backgrounded process. It turns typos into a gamble.
