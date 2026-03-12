@@ -14,7 +14,7 @@
 	  - **Contents:** Inside `.text`, you must tell the linker what to put there. We use the `*` wildcard to mean "from all files." You must place `*(.multiboot)` first, followed by `*(.text)`.
   5. **The Read-Only Data Section:** Define a `.rodata` section. Align it to 4K. Inside, place `*(.rodata)` . This holds string literals like "Hello World".
   6. **The Data Section:** Define a `.data` section. Align to 4K. Inside, Inside, place `*(.data)`. This holds initialized global variables.
-  7. The BSS Section: Define a .bss section. Align it to 4K. Inside, place `*(COMMON)` and then `*(.bss)`. This holds uninitialized variables and, crucially, the memory we will use for our kernel's Stack.
+  7. **The BSS Section**: Define a .bss section. Align it to 4K. Inside, place `*(COMMON)` and then `*(.bss)`. This holds uninitialized variables and, crucially, the memory we will use for our kernel's Stack.
 ### Pitfalls:
 - **Misplacing the Multiboot Header:** The bootloader (GRUB or QEMU) will only scan the first 8 kilobytes of your binary looking for a "Magic Number" to confirm it is an OS. If you do not put `*(.multiboot)` at the absolute top of the .text section, the bootloader will not find it, and the system will refuse to boot.
 - **Missing Semicolons:** Setting the location counter requires a semicolon (e.g. `VAR = VALUE`)'
