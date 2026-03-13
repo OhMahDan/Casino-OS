@@ -70,3 +70,23 @@ Because we are in a freestanding environment, we do not have `<string.h>`. We mu
 ### Pitfalls
 - **The Scrolling Trap:** What happens when `terminal_row` hits 25 (`VGA_ROWS`)? Right now, it will keep incrementing, and your math will calculate indexes outside the VGA buffer (`> 2000`). It will start overwriting kernel memory, eventually causing a fatal crash.
 - **The Temporary Check:** For this lesson, we will intentionally ignore the scrolling feature. Just be aware that if you print more than 25 lines of text, your OS will corrupt its own memory.
+## Lesson 2.4 Attributes and The Scrolling Trap
+Every character on the VGA screen is a 16-bit value. We've been using `0x07`. To make a "Jackpot" screen or a "Busted" alert, we need to manipulate the **Attribute Byte** dynamically.
+The 8-bit attribute is split into two 4-bit sections:
+- **Lower 4 bits:** Foreground color (0-15)
+- **Upper 4 bits:** Background color (0-7, or 0-15 if blinking is disabled).
+### Dynamic Coloring
+We will create a helper function to change the "House" color on the fly.
+1. **The Setter:** Create `void terminal_setcolor(unsigned char color)`.
+2. **The Enum:** (Optional but Professor-recommended) Define a set of color constants (e.g., `VGA_COLOR_RED = 4`, `VGA_COLOR_GOLD = 14`) so you aren't typing "magic numbers" into the code.
+### The Scrolling Trap (Mechanical Integrity)
+Right now, `terminal_putchar` increments `terminal_row` indefinitely. When it hits row 26, the index calculation points to memory addresses **past** the VGA buffer.
+In a real OS, this is a "Silent Killer." You aren't writing to the screen anymore; you are overwriting your kernel's code or data, leading to a "Triple Fault" (reboot).
+#### The Fix - Simple Scrolling:
+When the cursor hits the last row, we must shift everything up.
+1. **The Shift:** Move Row 1 to Row 0, Row 2 to Row 1, etc.
+2. **The Clear:** Wipe the very last row to make it blank
+3. **The Reset:** Set `terminal_row` back to the last line (24) instead of incrementing to 25.
+### Pitfalls
+- **Performance:** Nested loops ($O(n^2)$) inside a `putchar` function are technically slow. In a production OS, we would use `memmove`, but since we are "Bare Metal," we write the loops ourselves.
+- **Attribute Consistency:** When you clear the bottom row, you should use the *current* `terminal_color`. If the last thing you printed was "JACKPOT" (Yellow), a bad implementation might make the entire empty bottom row yellow instead of black.

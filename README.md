@@ -32,6 +32,14 @@ Casino OS is an experimental, non-deterministic kernel designed to explore the l
 	* *The Mechanic:* 
 		* 80% chance: "Command not found. The House forgives you."
 		* 20% chance: The shell executes a minor penalty, like forcibly sleeping the terminal for 10 seconds or killing your most recent backgrounded process. It turns typos into a gamble.
+* **Jackpots:** The House can't be the only one taking a cut.
+	* **The Storage Jackpot - CRC-32 Integrity**: In **JackpotFS**, the "Jackpot" is the only time the system actually behaves like a standard, reliable filesystem. 
+	* **The Scheduler Jackpot - The "Super-Quantum":** Standard multitasking uses a **Time Quantum** (e.g., 10ms) to switch between processes. A "Jackpot" roll allows a process to bypass the next several context switches.
+		* When the kernel generates the random number $R$ to pick the next process, it checks for a "Jackpot" value (e.g., $R$ exactly matches the process's first ticket ID).
+		* The winning process is awarded a **Super-Quantum**. Instead of 10ms, it is granted 100ms of uninterrupted CPU time. This is a massive "win" for computationally heavy tasks, effectively allowing them to "run the table" on the CPU.
+	* **The Memory Jackpot - Bonus Allocation:** Reclaiming the 5% memory tax is the standard win, but we can also implement a "Jackpot" outcome.
+		* If a process calls `double_or_nothing()` and the kernel's PRNG hits a specific "Jackpot" seed.
+		* **The Payout:** Not only is the 5% tax revoked (U/S bits flipped back to 1), but the kernel "matches the pot," allocating an additional $N$ pages of physical RAM to the process for free.
 
 ## Status: ALPHA
 
