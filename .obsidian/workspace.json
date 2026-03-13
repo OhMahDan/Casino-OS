@@ -185,6 +185,13 @@
   },
   "active": "593057d710aeaea5",
   "lastOpenFiles": [
+    "Learning Notes/Planned Lesson Structure.md",
+    "Learning Notes/Lesson 2 - Interrupts & Exceptions.md",
+    "Learning Notes/Lesson 1 - Bare Metal.md",
+    "idt.c",
+    "Learning Notes/Extra Lesson 1.3 - Memory-Mapped IO (VGA Buffer + More).md",
+    "Learning Notes/Extra Lesson 2.1 - Hardware Struct Layout vs C Grouping.md",
+    "idt.h",
     "casino.bin",
     "vga.o",
     "string.o",

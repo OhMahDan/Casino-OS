@@ -90,3 +90,50 @@ When the cursor hits the last row, we must shift everything up.
 ### Pitfalls
 - **Performance:** Nested loops ($O(n^2)$) inside a `putchar` function are technically slow. In a production OS, we would use `memmove`, but since we are "Bare Metal," we write the loops ourselves.
 - **Attribute Consistency:** When you clear the bottom row, you should use the *current* `terminal_color`. If the last thing you printed was "JACKPOT" (Yellow), a bad implementation might make the entire empty bottom row yellow instead of black.
+## Lesson 2.5: The Pit Boss (Interrupt Descriptor Table)
+Casino OS is no longer mute, but it is still deaf, blind, and numb. If you press a key, or if your code triggers and Exception 14 (Page Fault) for the Vigorish Tax, the CPU will panic and reboot. We must build a system that catches these events.
+### The IDT
+The Interrupt Descriptor Table (IDT) is an array of exactly 256 entries. When the CPU encounters an event (an Exception or a Hardware Interrupt), it stops current execution, looks up the corresponding entry in this array, and jumps to the memory address of the handler function defined there.
+- **Entries 0-31:** CPU Exceptions (0 is Divide by Zero, 14 is Page Fault)
+- **Entries 32-255:** Hardware Interrupts (Keyboard, Mouse, System Calls)
+### The 64-Bit Struct
+The x86 architecture strictly dictates the format of an IDT entry. It is exactly 64 bits (8 bytes) long. It does not look like a standard C pointer. It is fragmented.
+An IDT Entry requires:
+1. **Lower 16 bits:** The lower 16 bits of the handler function's memory address.
+2. **Next 16 bits:** The Kernel Segment Selector (a constant value of `0x08`)
+3. **Next 8 bits:** Always zero.
+4. **Next 8 bits:** Type and Attributes (Flags dictating who can call this interrupt.)
+5. **Upper 16 bits:** The upper 16 bits of the handler function's memory address.
+#### Side Topic: Hardware Struct Layout vs. C Grouping
+In standard C programming, it is common practice to group variables of the same type together on a single line (e.g., `int a, b, c;`).
+When defining data structures strictly for hardware consumption, this is a dangerous habit. **The CPU does not read your variable names.** It reads raw sequential byte offsets in RAM. The exact order you declare the variables in the struct dictates their physical sequence in memory.
+By grouping all your `uint16_t` variables together first, and your `uint8_t` variables second, you'll build this memory layout:
+- **Bytes 0-1:** `lw_16bits`
+- **Bytes 2-3:** `sgmntSlctr_16bits`
+- **Bytes 4-5:** `uppr_16bits` (The hardware expects the Zero byte and Flags here!)
+- **Bytes 6-7:** `zero_8bits` and `flgs_8bits` (The hardware expects the Upper 16 bits here!)
+When a keyboard interrupt fires, the CPU will attempt to construct the memory address of your handler function. It will accidentally stitch `lw_16bits` together with the `zero_8bits` and `flgs_8bits` values, generating a completely random memory address. It will jump to that random address and execute invalid instructions until the kernel violently crashes.
+#### The x86 IDT Specification
+To prevent this, you must declare the variables in the exact sequence the hardware demands. The x86 architecture dictates this specific byte-by-byte order from lowest memory address to highest:
+1. **Bytes 0-1:** Lower 16 bits of the handler address (`uint16_t`).
+2. **Bytes 2-3:** Segment selector (`uint16_t`).
+3. **Byte 4:** Always zero (`uint8_t`).
+4. **Byte 5:** Type and Attributes/Flags (`uint8_t`).E
+5. **Bytes 6-7:** Upper 16 bits of the handler address (`uint16_t`).
+### The IDT Pointer / IDTR
+The CPU does not magically know where you allocated your array of 256 entries. You have to explicitly tell the processor where the table begins and how large it is.
+The CPU stores this information in a dedicated hardware register called the **Interrupt Descriptor Table Register (IDTR)**. To load this register, x86 requires a specific 48-bit (6-byte) data structure.
+### The 48-bit Map
+We must define a second packed `struct` in the header file. This struct acts as the payload we will hand to the CPU via assembly later. It requires the exact two fields:
+1. **Limit (16-bit integer)**: The total size of the IDT array in bytes, minus one.
+2. **Base (32-bit integer):** The exact physical memory address where the first element of your array begins.
+### Pitfalls
+If you write a standard C `struct` with these variables, the C compiler will automatically insert invisible "padding" byes to align the memory for performance.
+- *The Danger:* If the compiler adds padding, your struct will be larger than 8 bytes. The CPU will read the wrong data, execute a garbage memory address, and instantly Triple Fault (crash).
+- *The Check:* We must use a compiler directive called `__attribute__((packed))` to force the compiler to leave the struct exactly as we define it, with zero padding.
+Hardware limits usually define the maximum addressable offset, not the literal size.
+- *The Danger:* Our table has 256 entries. Each entry is 8 bytes. The total size is 2,048 bytes. If you set the limit to `2048`, the CPU will technically believe byte offset `2048` is a valid interrupt, which is out of bounds.
+- *The Fix:* You must explicitly define the limit as `(sizeof(struct idt_entry) * 256) - 1`.
+## Lesson 2.6: The Gatekeeper (Setting an Entry)
+When an interrupt fires (like Exception 14 for the Vigorish Tax), the CPU needs to jump to your handler function. In a 32-bit operating system, the memory address of that function is exactly 32 bits long.
+As dictated by the `idt_entry` struct, the x86 hardware demands this 32-bit address be sliced in half. The lower 16 bits go to the byte offsets 0-1, and the upper 16 bits go to the byte offsets 6-7.
