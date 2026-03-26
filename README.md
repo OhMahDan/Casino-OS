@@ -23,7 +23,7 @@ Casino OS is an experimental, non-deterministic kernel designed to explore the l
 * **JackpotFS:** A file system where data integrity is probabilistic. High-value data can be "hit" with a `CRC-32` check, or "bust" with bit-rot.
 	* *One possible benefit:* **Chaos Engineering.** By building a filesystem that randomly corrupts data, I am inadvertently forcing myself to learn how to write incredibly robust data-recovery algorithms, checksum validators, and error-handling routines. The joke masks a brutally difficult engineering problem.
 
-## Optional Accessory "Features"
+## Future Expansion & Creative Directions
 
 * **The High-Roller Shell** Instead of a standard Bash-like shell, we can build a command line that requires users to pass "wagers" as arguments to standard commands.
 	* *Example:* To read a file, the user types `read("notes.txt", 50)`. The `50` is the percentage of their CPU tickets they are willing to bet. If they win, the file opens instantly. If they lose, the shell hangs for 5 seconds as a penalty.
@@ -41,7 +41,8 @@ Casino OS is an experimental, non-deterministic kernel designed to explore the l
 		* If a process calls `double_or_nothing()` and the kernel's PRNG hits a specific "Jackpot" seed.
 		* **The Payout:** Not only is the 5% tax revoked (U/S bits flipped back to 1), but the kernel "matches the pot," allocating an additional $N$ pages of physical RAM to the process for free.
 
-## Status: ALPHA
+## Status: Phase 0 (Kernel Foundation & Bootstrapping)
+
 
 **Warning:** This OS is a parody. It is designed to be unstable. Running this may result in process starvation, memory embezzlement, or spontaneous system-wide bankruptcies (Kernel Panics).
 
